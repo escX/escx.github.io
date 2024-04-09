@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="200px" height="63px" viewBox="0 0 200 63" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>logo</title>
-    <g id="logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="LEN" fill="#000000" fill-rule="nonzero">
-            <polygon id="路径" points="30.5102041 33.3837209 61.2244898 33.3837209 61.2244898 63 0 63 0 0 30.5102041 0"></polygon>
-            <polygon id="路径" points="69.3877551 63 69.3877551 0 99.8979592 0 99.8979592 21.3488372 115.204082 21.3488372 115.204082 41.127907 130.612245 41.127907 130.612245 63"></polygon>
-            <polygon id="路径" points="138.77551 63 200 63 200 0 169.387755 0 169.387755 31.6046512 138.77551 0.209302326"></polygon>
-        </g>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="40" viewBox="0 0 120 40" fill="none">
+<path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+</path>
 </svg>

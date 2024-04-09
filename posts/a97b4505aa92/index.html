@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- title -->
+  
+    
+      <title>我所理解的区块链</title>
+    
+  
+
+  <!-- open graph -->
+  <meta name="description" content="区块链是什么一种去中心化的、不易篡改的、长效的数据保存形式。联想现实生活中，数据保存的形式：  发布在社交平台上的数据，是中心化的； 平时随手写在纸条上的数据，是去中心化的； 多人在场见证某件事情，留在每个人记忆中的数据，是去中心化的，不易篡改的；  …… 现实中有各式各样的数据保存形式，但不都能像区块链技术这样，为保存的数据赋予了更多价值。借用互联网人的话来讲，区块链赋能了数据。 区块链的价值区">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我所理解的区块链">
+<meta property="og:url" content="https://escx.github.io/posts/a97b4505aa92/">
+<meta property="og:site_name" content="esc&lt;x&gt;">
+<meta property="og:description" content="区块链是什么一种去中心化的、不易篡改的、长效的数据保存形式。联想现实生活中，数据保存的形式：  发布在社交平台上的数据，是中心化的； 平时随手写在纸条上的数据，是去中心化的； 多人在场见证某件事情，留在每个人记忆中的数据，是去中心化的，不易篡改的；  …… 现实中有各式各样的数据保存形式，但不都能像区块链技术这样，为保存的数据赋予了更多价值。借用互联网人的话来讲，区块链赋能了数据。 区块链的价值区">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-04-09T12:33:57.000Z">
+<meta property="article:modified_time" content="2024-04-09T16:50:35.042Z">
+<meta property="article:author" content="escx">
+<meta property="article:tag" content="区块链">
+<meta name="twitter:card" content="summary">
+
+  <!-- canonical -->
+  
+    <link rel="canonical" href="https://escx.github.io/posts/a97b4505aa92/">
+  
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- Preload fonts -->
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-regular.woff2" crossorigin blocking="render">
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-600.woff2" crossorigin blocking="render">
+
+  <!-- CSS -->
+  
+<link rel="stylesheet prefetch" as="style" href="/css/reset.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/style.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/markdown.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/fonts.css">
+
+
+  <!-- highlight.js -->
+  
+    <script>
+        function loadHljs() {
+            hljs.highlightAll();
+        }
+        function loadHljsLineNumbers() {
+            hljs.initLineNumbersOnLoad();
+        }
+    </script>
+
+    
+<link rel="stylesheet prefetch" as="style" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js" defer onload="loadHljs()"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js" defer onload="loadHljsLineNumbers()"></script>
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+    <body>
+        <div class="paper-main">
+            <div class="header">
+    <a class="logo" href="/" title="esc&lt;x&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="30" viewBox="0 0 120 40" fill="none">
+            <path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+            </path>
+        </svg>
+    </a>
+
+    <ul class="nav">
+        
+            
+            <li>
+                
+                    <a class="current" href="/">
+                        首页
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/archives">
+                        归档
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/categories">
+                        分类
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/tags">
+                        标签
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/about">
+                        关于
+                    </a>
+                
+            </li>
+        
+    </ul>
+
+    <div class="subtitle">“与其感慨路难行，不如马上出发。”</div>
+</div>
+
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            我所理解的区块链
+        </div>
+        <div class="post-meta">
+            2024-04-09
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
+                    未分类
+                </a>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <a class="link" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">
+                    #&nbsp;区块链&nbsp;
+                </a>
+            
+        </div>
+        <div class="post-md">
+            <h3 id="区块链是什么"><a href="#区块链是什么" class="headerlink" title="区块链是什么"></a>区块链是什么</h3><p>一种去中心化的、不易篡改的、长效的数据保存形式。联想现实生活中，数据保存的形式：</p>
+<ul>
+<li>发布在社交平台上的数据，是中心化的；</li>
+<li>平时随手写在纸条上的数据，是去中心化的；</li>
+<li>多人在场见证某件事情，留在每个人记忆中的数据，是去中心化的，不易篡改的；</li>
+</ul>
+<p>……</p>
+<p>现实中有各式各样的数据保存形式，但不都能像区块链技术这样，为保存的数据赋予了更多价值。借用互联网人的话来讲，区块链赋能了数据。</p>
+<h3 id="区块链的价值"><a href="#区块链的价值" class="headerlink" title="区块链的价值"></a>区块链的价值</h3><p>区块链实现了一种之前未曾有过的价值，即它从技术层面解决了信任问题。举个通俗的例子，有人送你一张写有字的小纸条，你知道这是通过区块链技术记录的文字，那么即使你不认识送你纸条的人，你也完全可以相信纸条上面的信息。</p>
+<p>这种信任来源于人们对技术，或者说计算机或数学的信任。就像你上了明天8点的闹钟，就能很安心的去睡觉。你可能还是会担心手机坏掉或者没电的情况，在区块链中则完全不会有这种担心，即使你运行的节点失效了，还有成千上万的节点在运行保存着同样的数据。</p>
+<h3 id="区块链行业现状"><a href="#区块链行业现状" class="headerlink" title="区块链行业现状"></a>区块链行业现状</h3><p>尽管区块链有着不可替代的价值作用，但目前来看，还只是下面这些特定的领域，能更好的发挥出它的价值：</p>
+<ul>
+<li>金融资产（Defi）</li>
+<li>创作（NFT）</li>
+<li>数据（元宇宙、DAO）</li>
+</ul>
+<p>但未来的发展很难说，就像互联网初期，很少人能想到这玩意会颠覆人们的生活方式，甚至成为了一种注意不到但不可或缺的存在。随着区块链基础设施的完善，人们终究会探索出一条适合区块链技术发展和应用的道路。到那个时候，或许人和人、人和社会组织、人和自然的关系将被重塑。</p>
+<h3 id="面临的问题"><a href="#面临的问题" class="headerlink" title="面临的问题"></a>面临的问题</h3><p>如上面一节所提到的，只有某些特定领域能更好的应用区块链技术，是因为这些领域的信息，可以很方便的在链上（on-chain）记录和流转。而其他一些领域，面临的最大的问题就是<strong>数据上链</strong>，只有打通全流程、全环节的链上数据，才能真正发挥区块链的价值和作用。</p>
+<p>另一个问题是国内需要考虑的。鉴于政治经济因素的考量，区块链的大规模应用，要面对的一个很重要的问题就是<strong>实名制</strong>。</p>
+
+        </div>
+    
+</div>
+
+            <div class="footer">
+    <span>
+        Copyright © <time datetime="2024-04-09T16:51:35.594Z">2024</time> escx
+    </span>
+</div>
+
+        </div>
+    </body>
+</html>
