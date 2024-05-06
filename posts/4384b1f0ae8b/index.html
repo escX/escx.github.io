@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- title -->
+  
+    
+      <title>EIP-712 Example</title>
+    
+  
+
+  <!-- open graph -->
+  <meta name="description" content="合约代码&#x2F;&#x2F; SPDX-License-Identifier: MIT pragma solidity ^0.8.0;  struct Mail &#123;     address from;     address to;     string content; &#125;  contract EIP712Example &#123;     bytes32 private DOMAIN_S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EIP-712 Example">
+<meta property="og:url" content="https://escx.github.io/posts/4384b1f0ae8b/">
+<meta property="og:site_name" content="esc&lt;x&gt;">
+<meta property="og:description" content="合约代码&#x2F;&#x2F; SPDX-License-Identifier: MIT pragma solidity ^0.8.0;  struct Mail &#123;     address from;     address to;     string content; &#125;  contract EIP712Example &#123;     bytes32 private DOMAIN_S">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-06T09:42:48.000Z">
+<meta property="article:modified_time" content="2024-05-06T13:55:19.751Z">
+<meta property="article:author" content="Jian">
+<meta property="article:tag" content="EIP">
+<meta property="article:tag" content="Example Code">
+<meta name="twitter:card" content="summary">
+
+  <!-- canonical -->
+  
+    <link rel="canonical" href="https://escx.github.io/posts/4384b1f0ae8b/">
+  
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- Preload fonts -->
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-regular.woff2" crossorigin blocking="render">
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-600.woff2" crossorigin blocking="render">
+
+  <!-- CSS -->
+  
+<link rel="stylesheet prefetch" as="style" href="/css/reset.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/style.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/markdown.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/fonts.css">
+
+
+  <!-- highlight.js -->
+  
+    <script>
+        function loadHljs() {
+            hljs.highlightAll();
+        }
+        function loadHljsLineNumbers() {
+            hljs.initLineNumbersOnLoad();
+        }
+    </script>
+
+    
+<link rel="stylesheet prefetch" as="style" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js" defer onload="loadHljs()"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js" defer onload="loadHljsLineNumbers()"></script>
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+    <body>
+        <div class="paper-main">
+            <div class="header">
+    <a class="logo" href="/" title="esc&lt;x&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="30" viewBox="0 0 120 40" fill="none">
+            <path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+            </path>
+        </svg>
+    </a>
+
+    <ul class="nav">
+        
+            
+            <li>
+                
+                    <a class="current" href="/">
+                        首页
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/archives">
+                        归档
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/categories">
+                        分类
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/tags">
+                        标签
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/about">
+                        关于
+                    </a>
+                
+            </li>
+        
+    </ul>
+
+    <div class="subtitle">“与其感慨路难行，不如马上出发。”</div>
+</div>
+
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            EIP-712 Example
+        </div>
+        <div class="post-meta">
+            2024-05-06
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
+                    未分类
+                </a>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <a class="link" href="/tags/EIP/">
+                    #&nbsp;EIP&nbsp;
+                </a>
+            
+                <a class="link" href="/tags/Example-Code/">
+                    #&nbsp;Example Code&nbsp;
+                </a>
+            
+        </div>
+        <div class="post-md">
+            <h3 id="合约代码"><a href="#合约代码" class="headerlink" title="合约代码"></a>合约代码</h3><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+struct Mail &#123;
+    address from;
+    address to;
+    string content;
+&#125;
+
+contract EIP712Example &#123;
+    bytes32 private DOMAIN_SEPARATOR;
+    // keccak256(&quot;Mail(address from,address to,string content)&quot;)
+    bytes32 private constant TYPEHASH = 0xa91a5eed6664cc06f977dacf513eaa9b859c813f1b8fc8002c04b493bff7df1b;
+
+    constructor() &#123;
+        uint chainId;
+        assembly &#123;
+            chainId := chainid
+        &#125;
+        DOMAIN_SEPARATOR = keccak256(
+            abi.encode(
+                keccak256(&#x27;EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)&#x27;),
+                keccak256(bytes(&#x27;Mail&#x27;)),
+                keccak256(bytes(&#x27;1&#x27;)),
+                chainId,
+                address(this)
+            )
+        );
+    &#125;
+
+    // 验证签名
+    function verifyMessage(Mail memory message, uint8 v, bytes32 r, bytes32 s) public view returns (bool) &#123;
+        bytes32 digest = keccak256(abi.encodePacked(
+            &quot;\x19\x01&quot;,
+            DOMAIN_SEPARATOR,
+            keccak256(abi.encode(
+                TYPEHASH,
+                message.from,
+                message.to,
+                keccak256(bytes(message.content))
+            ))
+        ));
+
+        address recoveredAddress = ecrecover(digest, v, r, s);
+
+        return (recoveredAddress == message.from);
+    &#125;
+&#125;</code></pre>
+
+<h3 id="前端代码"><a href="#前端代码" class="headerlink" title="前端代码"></a>前端代码</h3><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123; ethers &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;ethers&quot;</span>;
+
+<span class="hljs-keyword">const</span> domain = &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;My App&#x27;</span>,
+  <span class="hljs-attr">version</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+  <span class="hljs-attr">chainId</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">verifyingContract</span>: <span class="hljs-string">&#x27;0x1111111111111111111111111111111111111111&#x27;</span>
+&#125;;
+
+<span class="hljs-keyword">const</span> types = &#123;
+  <span class="hljs-title class_">Mail</span>: [
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;from&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;Person&#x27;</span> &#125;,
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;to&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;Person&#x27;</span> &#125;,
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;content&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span> &#125;
+  ],
+  <span class="hljs-title class_">Person</span>: [
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;name&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span> &#125;,
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;wallet&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;address&#x27;</span> &#125;
+  ]
+&#125;;
+
+<span class="hljs-keyword">const</span> mail = &#123;
+  <span class="hljs-attr">from</span>: &#123;
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Alice&#x27;</span>,
+    <span class="hljs-attr">wallet</span>: <span class="hljs-string">&#x27;0x2111111111111111111111111111111111111111&#x27;</span>
+  &#125;,
+  <span class="hljs-attr">to</span>: &#123;
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Bob&#x27;</span>,
+    <span class="hljs-attr">wallet</span>: <span class="hljs-string">&#x27;0x3111111111111111111111111111111111111111&#x27;</span>
+  &#125;,
+  <span class="hljs-attr">content</span>: <span class="hljs-string">&#x27;Hello!&#x27;</span>
+&#125;;
+
+<span class="hljs-comment">// 签名</span>
+<span class="hljs-keyword">const</span> signature = <span class="hljs-keyword">await</span> signer.<span class="hljs-title function_">signTypedData</span>(domain, types, mail);
+
+<span class="hljs-comment">// 验证签名</span>
+<span class="hljs-keyword">const</span> expectedSignerAddress = signer.<span class="hljs-property">address</span>;
+<span class="hljs-keyword">const</span> recoveredAddress = ethers.<span class="hljs-title function_">verifyTypedData</span>(domain, types, mail, signature);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(recoveredAddress === expectedSignerAddress);</code></pre>
+
+        </div>
+    
+</div>
+
+            <div class="footer">
+    <span>
+        Copyright © <time datetime="2024-05-06T14:14:23.270Z">2024</time> Jian
+    </span>
+</div>
+
+        </div>
+    </body>
+</html>

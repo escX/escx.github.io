@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- title -->
+  
+    
+      <title>以太坊中的数字签名和验证过程</title>
+    
+  
+
+  <!-- open graph -->
+  <meta name="description" content="非对称加密的应用场景之一是签名和验证。签名和验证是一种验证数据完整性和真实性的方法。在以太坊中，按照签名对象的不同，可以划分出两种类型：签名交易和签名消息。 概述以太坊中，可以根据 私钥 和 消息，通过 ECDSA 算法生成 签名。签名结果 r s v 可以拼接为一个 65 字节的序列，进而编码为长度 130 的十六进制数据（不包括前缀 0x）。私钥通常在链下由用户保管，因此签名的过程一般发生在链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊中的数字签名和验证过程">
+<meta property="og:url" content="https://escx.github.io/posts/4f4e5755520c/">
+<meta property="og:site_name" content="esc&lt;x&gt;">
+<meta property="og:description" content="非对称加密的应用场景之一是签名和验证。签名和验证是一种验证数据完整性和真实性的方法。在以太坊中，按照签名对象的不同，可以划分出两种类型：签名交易和签名消息。 概述以太坊中，可以根据 私钥 和 消息，通过 ECDSA 算法生成 签名。签名结果 r s v 可以拼接为一个 65 字节的序列，进而编码为长度 130 的十六进制数据（不包括前缀 0x）。私钥通常在链下由用户保管，因此签名的过程一般发生在链">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-06T05:42:27.000Z">
+<meta property="article:modified_time" content="2024-05-06T13:22:22.055Z">
+<meta property="article:author" content="Jian">
+<meta property="article:tag" content="签名和交易">
+<meta name="twitter:card" content="summary">
+
+  <!-- canonical -->
+  
+    <link rel="canonical" href="https://escx.github.io/posts/4f4e5755520c/">
+  
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- Preload fonts -->
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-regular.woff2" crossorigin blocking="render">
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-600.woff2" crossorigin blocking="render">
+
+  <!-- CSS -->
+  
+<link rel="stylesheet prefetch" as="style" href="/css/reset.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/style.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/markdown.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/fonts.css">
+
+
+  <!-- highlight.js -->
+  
+    <script>
+        function loadHljs() {
+            hljs.highlightAll();
+        }
+        function loadHljsLineNumbers() {
+            hljs.initLineNumbersOnLoad();
+        }
+    </script>
+
+    
+<link rel="stylesheet prefetch" as="style" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js" defer onload="loadHljs()"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js" defer onload="loadHljsLineNumbers()"></script>
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+    <body>
+        <div class="paper-main">
+            <div class="header">
+    <a class="logo" href="/" title="esc&lt;x&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="30" viewBox="0 0 120 40" fill="none">
+            <path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+            </path>
+        </svg>
+    </a>
+
+    <ul class="nav">
+        
+            
+            <li>
+                
+                    <a class="current" href="/">
+                        首页
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/archives">
+                        归档
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/categories">
+                        分类
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/tags">
+                        标签
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/about">
+                        关于
+                    </a>
+                
+            </li>
+        
+    </ul>
+
+    <div class="subtitle">“与其感慨路难行，不如马上出发。”</div>
+</div>
+
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            以太坊中的数字签名和验证过程
+        </div>
+        <div class="post-meta">
+            2024-05-06
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
+                    未分类
+                </a>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <a class="link" href="/tags/%E7%AD%BE%E5%90%8D%E5%92%8C%E4%BA%A4%E6%98%93/">
+                    #&nbsp;签名和交易&nbsp;
+                </a>
+            
+        </div>
+        <div class="post-md">
+            <p>非对称加密的应用场景之一是签名和验证。签名和验证是一种验证数据完整性和真实性的方法。在以太坊中，按照签名对象的不同，可以划分出两种类型：签名交易和签名消息。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>以太坊中，可以根据 <strong>私钥</strong> 和 <strong>消息</strong>，通过 ECDSA 算法生成 <strong>签名</strong>。签名结果 <strong>r</strong> <strong>s</strong> <strong>v</strong> 可以拼接为一个 65 字节的序列，进而编码为长度 130 的十六进制数据（不包括前缀 0x）。私钥通常在链下由用户保管，因此签名的过程一般发生在链下。</p>
+<p>验证过程会根据 <strong>签名</strong> 和 <strong>消息</strong>，计算出 <strong>公钥</strong>，亦即消息发送方的地址。通过比对 <strong>公钥</strong> 和 <strong>地址</strong>，可以验证签名的真实性。对于签名交易，验证过程通常发生在将交易打包到区块之前；对于签名消息，验证过程可能发生在链下，也可能发生在合约方法执行过程中。</p>
+<p>下面给出将 <strong>签名</strong> 分割为 <strong>r</strong> <strong>s</strong> <strong>v</strong> 的主要代码。</p>
+<pre><code class="hljs solidity">// solidity 方法，需要使用内联汇编语法
+assembly &#123;
+    r := mload(add(signature, 0x20))
+    s := mload(add(signature, 0x40))
+    v := byte(0, mload(add(signature, 0x60)))
+&#125;</code></pre>
+
+<pre><code class="hljs javascript"><span class="hljs-comment">// javascript 方法</span>
+<span class="hljs-keyword">const</span> r = signature.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, <span class="hljs-number">66</span>); <span class="hljs-comment">// 前32字节（包括前缀 0x，共66个字符）</span>
+<span class="hljs-keyword">const</span> s = <span class="hljs-string">&#x27;0x&#x27;</span> + signature.<span class="hljs-title function_">slice</span>(<span class="hljs-number">66</span>, <span class="hljs-number">130</span>); <span class="hljs-comment">// 中间32字节（64个字符，另外拼接前缀 0x）</span>
+<span class="hljs-keyword">const</span> v = <span class="hljs-string">&#x27;0x&#x27;</span> + signature.<span class="hljs-title function_">slice</span>(<span class="hljs-number">130</span>, <span class="hljs-number">132</span>); <span class="hljs-comment">// 最后1字节（2个字符，另外拼接前缀 0x）</span></code></pre>
+
+<h3 id="签名交易"><a href="#签名交易" class="headerlink" title="签名交易"></a>签名交易</h3><p>以太坊为减少网络传输和存储开销，实现了一种 <strong>RLP(Recursive Length Prefix)</strong> 编码方法。在对交易进行签名的过程中，会对数据进行 RLP 编码。下面是签名交易的步骤：</p>
+<ol>
+<li>对交易数据进行 RLP 编码 <code>RLP(nonce, gasPrice, gasLimit, to, value, data, chainId, 0, 0)</code></li>
+<li>对 RLP 编码结果进行 Keccak256 哈希计算</li>
+<li>使用私钥对哈希结果进行 ECDSA 签名</li>
+<li>将交易数据和签名结果进行 RLP 编码 <code>RLP(nonce, gasPrice, gasLimit, to, value, data, v, r, s)</code></li>
+</ol>
+<p>在开发过程中，不必逐步实现上面的签名过程，可以使用 ethers.js 提供的 <code>signTransaction</code> 方法，直接对交易数据进行编码及签名。</p>
+<p>笔者在学习这部分内容时，认为签名交易的验证发生在以太坊客户端中，由客户端语言如 Golang、C++ 等实现，因此该过程不在本文讨论范围。</p>
+<h3 id="签名消息"><a href="#签名消息" class="headerlink" title="签名消息"></a>签名消息</h3><p>签名消息也称为 presigned message。<strong>EIP-191</strong> 和 <strong>EIP-712</strong> 制定了签名消息的规范，本文不会讨论这些规范，仅为说明下面签名消息的步骤：</p>
+<ol>
+<li>按照规范对消息进行格式化</li>
+<li>对格式化后的消息进行 Keccak256 哈希计算</li>
+<li>使用私钥对哈希结果进行 ECDSA 签名</li>
+</ol>
+<p>同样的，ethers.js 提供了签名消息方法 <code>signMessage</code> 和 <code>signTypedData</code>，这两种方法分别对应了规范中的两类格式。</p>
+<p>验证签名的过程，即通过 <strong>签名</strong> 和 <strong>消息</strong> 计算出 <strong>公钥</strong>，进而验证 <strong>公钥</strong> 和 <strong>地址</strong> 是否一致。ethers.js 提供了计算公钥的方法 <code>verifyMessage</code> 和 <code>verifyTypedData</code>，分别对应规范中的两类格式。在合约代码中，则通过 <code>ecrecover</code> 方法计算公钥。</p>
+
+        </div>
+    
+</div>
+
+            <div class="footer">
+    <span>
+        Copyright © <time datetime="2024-05-06T14:14:23.269Z">2024</time> Jian
+    </span>
+</div>
+
+        </div>
+    </body>
+</html>
