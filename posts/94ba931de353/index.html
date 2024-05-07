@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- title -->
+  
+    
+      <title>接收以太币</title>
+    
+  
+
+  <!-- open graph -->
+  <meta name="description" content="无论是合约还是外部账户，目前都无法阻止有人向它们发送以太币。合约可以对普通的转账做出反应并拒绝，但有一些方法可以在不创建消息调用的情况下转移以太币。一种方法是将合约地址设置为接收挖矿奖励的地址，另一种方法是使用 selfdestruct(x) 函数。这个函数会销毁合约并将其中的以太币发送到 x 地址。 本文只讨论在合约中处理普通转账（函数调用的交易）的情况。 概述一个合约要想接收普通转账的以太币，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接收以太币">
+<meta property="og:url" content="https://escx.github.io/posts/94ba931de353/">
+<meta property="og:site_name" content="esc&lt;x&gt;">
+<meta property="og:description" content="无论是合约还是外部账户，目前都无法阻止有人向它们发送以太币。合约可以对普通的转账做出反应并拒绝，但有一些方法可以在不创建消息调用的情况下转移以太币。一种方法是将合约地址设置为接收挖矿奖励的地址，另一种方法是使用 selfdestruct(x) 函数。这个函数会销毁合约并将其中的以太币发送到 x 地址。 本文只讨论在合约中处理普通转账（函数调用的交易）的情况。 概述一个合约要想接收普通转账的以太币，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-07T06:41:16.000Z">
+<meta property="article:modified_time" content="2024-05-07T12:23:58.275Z">
+<meta property="article:author" content="Jian">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary">
+
+  <!-- canonical -->
+  
+    <link rel="canonical" href="https://escx.github.io/posts/94ba931de353/">
+  
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- Preload fonts -->
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-regular.woff2" crossorigin blocking="render">
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-600.woff2" crossorigin blocking="render">
+
+  <!-- CSS -->
+  
+<link rel="stylesheet prefetch" as="style" href="/css/reset.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/style.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/markdown.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/fonts.css">
+
+
+  <!-- highlight.js -->
+  
+    <script>
+        function loadHljs() {
+            hljs.highlightAll();
+        }
+        function loadHljsLineNumbers() {
+            hljs.initLineNumbersOnLoad();
+        }
+    </script>
+
+    
+<link rel="stylesheet prefetch" as="style" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js" defer onload="loadHljs()"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js" defer onload="loadHljsLineNumbers()"></script>
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+    <body>
+        <div class="paper-main">
+            <div class="header">
+    <a class="logo" href="/" title="esc&lt;x&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="30" viewBox="0 0 120 40" fill="none">
+            <path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+            </path>
+        </svg>
+    </a>
+
+    <ul class="nav">
+        
+            
+            <li>
+                
+                    <a class="current" href="/">
+                        首页
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/archives">
+                        归档
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/categories">
+                        分类
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/tags">
+                        标签
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/about">
+                        关于
+                    </a>
+                
+            </li>
+        
+    </ul>
+
+    <div class="subtitle">“与其感慨路难行，不如马上出发。”</div>
+</div>
+
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            接收以太币
+        </div>
+        <div class="post-meta">
+            2024-05-07
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
+                    未分类
+                </a>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <a class="link" href="/tags/Solidity/">
+                    #&nbsp;Solidity&nbsp;
+                </a>
+            
+        </div>
+        <div class="post-md">
+            <p>无论是合约还是外部账户，目前都无法阻止有人向它们发送以太币。合约可以对普通的转账做出反应并拒绝，但有一些方法可以在不创建消息调用的情况下转移以太币。一种方法是将合约地址设置为接收挖矿奖励的地址，另一种方法是使用 <code>selfdestruct(x)</code> 函数。这个函数会销毁合约并将其中的以太币发送到 <code>x</code> 地址。</p>
+<p>本文只讨论在合约中处理普通转账（函数调用的交易）的情况。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>一个合约要想接收普通转账的以太币，必须实现 <code>receive</code> 或者 <strong>payable</strong> 类型的 <code>fallback</code>，否则在转账给合约时，合约会拒绝接收并抛出异常，以太币也会被返回。</p>
+<p>在 Solidity 0.6.x 版本之前，只存在 fallback 函数，用来接收以太币，并在外部调用函数没有匹配时被调用。但这违背了单一职责原则，容易导致代码混乱并造成错误。后来引入的 receive 函数专门用来处理接收以太币的情况。可能是为了向后兼容，也可能是考虑转账交易本身就无法匹配合约中的任何函数，fallback 函数依然保留了处理以太币的功能，但需要为 fallback 函数添加 <strong>payable</strong> 修饰符。</p>
+<h3 id="receive-函数"><a href="#receive-函数" class="headerlink" title="receive 函数"></a>receive 函数</h3><p>一个合约最多可以有一个 <strong>receive</strong> 函数，这个函数不能有参数，不能返回任何东西，必须具有 <strong>external</strong> 和 <strong>payable</strong> 修饰符。只有纯以太坊转账交易（也不能带有 <strong>calldata</strong>）时，该函数会被调用。</p>
+<pre><code class="hljs solidity">receive() external payable &#123;
+    emit Received(msg.sender, msg.value);
+&#125;</code></pre>
+
+<h3 id="fallback-函数"><a href="#fallback-函数" class="headerlink" title="fallback 函数"></a>fallback 函数</h3><p>一个合约最多可以有一个 <strong>fallback</strong> 函数，这个函数必须具有 <strong>external</strong> 修饰符，如需接收以太币，则要添加 <strong>payable</strong> 修饰符。</p>
+<pre><code class="hljs solidity">// 不附带参数的声明
+fallback () external [payable]
+
+// 附带参数的声明
+fallback (bytes calldata input) external [payable] returns (bytes memory output)</code></pre>
+
+<h3 id="触发条件判断"><a href="#触发条件判断" class="headerlink" title="触发条件判断"></a>触发条件判断</h3><pre><code class="hljs plaintext">           接收ETH
+              |
+         msg.data是空？
+            /  \
+          是    否
+          /      \
+receive()存在?   fallback()
+        / \
+       是  否
+      /     \
+receive()   fallback()</code></pre>
+
+        </div>
+    
+</div>
+
+            <div class="footer">
+    <span>
+        Copyright © <time datetime="2024-05-07T15:24:09.311Z">2024</time> Jian
+    </span>
+</div>
+
+        </div>
+    </body>
+</html>

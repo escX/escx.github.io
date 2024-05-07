@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- title -->
+  
+    
+      <title>异常处理</title>
+    
+  
+
+  <!-- open graph -->
+  <meta name="description" content="目前 Solidity 0.8.x 版本有三种方式处理异常：revert require assert。 error 声明自定义错误error 是 solidity 0.8.4 版本新加的内容，必须搭配 revert 命令使用。相比字符串错误信息，自定义 error 更加节省 gas，这是因为：  不需要对多个错误信息进行字符串拼接和格式化； 通过自定义错误名称描述错误，而自定义错误名称部署在区块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异常处理">
+<meta property="og:url" content="https://escx.github.io/posts/085a94d2b9a3/">
+<meta property="og:site_name" content="esc&lt;x&gt;">
+<meta property="og:description" content="目前 Solidity 0.8.x 版本有三种方式处理异常：revert require assert。 error 声明自定义错误error 是 solidity 0.8.4 版本新加的内容，必须搭配 revert 命令使用。相比字符串错误信息，自定义 error 更加节省 gas，这是因为：  不需要对多个错误信息进行字符串拼接和格式化； 通过自定义错误名称描述错误，而自定义错误名称部署在区块">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-07T02:37:44.000Z">
+<meta property="article:modified_time" content="2024-05-07T12:30:47.410Z">
+<meta property="article:author" content="Jian">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary">
+
+  <!-- canonical -->
+  
+    <link rel="canonical" href="https://escx.github.io/posts/085a94d2b9a3/">
+  
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- Preload fonts -->
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-regular.woff2" crossorigin blocking="render">
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-600.woff2" crossorigin blocking="render">
+
+  <!-- CSS -->
+  
+<link rel="stylesheet prefetch" as="style" href="/css/reset.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/style.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/markdown.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/fonts.css">
+
+
+  <!-- highlight.js -->
+  
+    <script>
+        function loadHljs() {
+            hljs.highlightAll();
+        }
+        function loadHljsLineNumbers() {
+            hljs.initLineNumbersOnLoad();
+        }
+    </script>
+
+    
+<link rel="stylesheet prefetch" as="style" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js" defer onload="loadHljs()"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js" defer onload="loadHljsLineNumbers()"></script>
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+    <body>
+        <div class="paper-main">
+            <div class="header">
+    <a class="logo" href="/" title="esc&lt;x&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="30" viewBox="0 0 120 40" fill="none">
+            <path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+            </path>
+        </svg>
+    </a>
+
+    <ul class="nav">
+        
+            
+            <li>
+                
+                    <a class="current" href="/">
+                        首页
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/archives">
+                        归档
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/categories">
+                        分类
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/tags">
+                        标签
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/about">
+                        关于
+                    </a>
+                
+            </li>
+        
+    </ul>
+
+    <div class="subtitle">“与其感慨路难行，不如马上出发。”</div>
+</div>
+
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            异常处理
+        </div>
+        <div class="post-meta">
+            2024-05-07
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
+                    未分类
+                </a>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <a class="link" href="/tags/Solidity/">
+                    #&nbsp;Solidity&nbsp;
+                </a>
+            
+        </div>
+        <div class="post-md">
+            <p>目前 Solidity 0.8.x 版本有三种方式处理异常：<strong>revert</strong> <strong>require</strong> <strong>assert</strong>。</p>
+<h3 id="error-声明自定义错误"><a href="#error-声明自定义错误" class="headerlink" title="error 声明自定义错误"></a>error 声明自定义错误</h3><p><strong>error</strong> 是 solidity 0.8.4 版本新加的内容，必须搭配 <strong>revert</strong> 命令使用。相比字符串错误信息，自定义 error 更加节省 gas，这是因为：</p>
+<ul>
+<li>不需要对多个错误信息进行字符串拼接和格式化；</li>
+<li>通过自定义错误名称描述错误，而自定义错误名称部署在区块上时，只占用4个字节的空间。</li>
+</ul>
+<pre><code class="hljs solidity">error CustomError();
+error CustomErrorWithMessage(string message);</code></pre>
+
+<h3 id="revert-处理异常"><a href="#revert-处理异常" class="headerlink" title="revert 处理异常"></a>revert 处理异常</h3><pre><code class="hljs solidity">revert();
+revert(&quot;Error message&quot;);
+revert CustomError();
+revert CustomErrorWithMessage(&quot;Error message&quot;);</code></pre>
+
+<h3 id="require-处理异常"><a href="#require-处理异常" class="headerlink" title="require 处理异常"></a>require 处理异常</h3><pre><code class="hljs solidity">require(num &gt; 0);
+require(num &gt; 0, &quot;Error message&quot;);</code></pre>
+
+<h3 id="assert-处理异常"><a href="#assert-处理异常" class="headerlink" title="assert 处理异常"></a>assert 处理异常</h3><p><strong>assert</strong> 函数创建了一个 <strong>Panic(uint256)</strong> 类型的错误。正确运行的代码不应该创建一个 <strong>Panic</strong> 异常，甚至在无效的外部输入时也不应该。因此 <strong>assert</strong> 应该只用于测试内部错误，以及检查变量值。</p>
+<pre><code class="hljs solidity">assert(address == 0x1111111111111111111111111111111111111111);</code></pre>
+
+<blockquote>
+<p>Error 是业务层面的错误，通常也会作为业务的一部分，在编程的过程中进行分支判断和处理。</p>
+<p>Panic 是程序层面的错误，在编程阶段可能无法预知，通常在编译阶段发现并得以修复。</p>
+</blockquote>
+<h3 id="try-catch-捕获异常"><a href="#try-catch-捕获异常" class="headerlink" title="try catch 捕获异常"></a>try catch 捕获异常</h3><p>当我们与外部合约进行交互，并且希望捕获外部合约抛出的异常时，可以使用 <strong>try catch</strong> 语句。但对于 <strong>send</strong> 和低级别函数 <strong>call</strong> <strong>delegatecall</strong> <strong>staticcall</strong>，它们的错误无法被捕获，因为在发生异常时，<strong>false</strong> 作为第一个参数被返回，而不是“冒泡”。</p>
+<pre><code class="hljs solidity">// SPDX-License-Identifier: GPL-3.0
+pragma solidity &gt;=0.8.1;
+
+interface DataFeed &#123; function getData(address token) external returns (uint value); &#125;
+
+contract FeedConsumer &#123;
+    DataFeed feed;
+    uint errorCount;
+
+    function rate(address token) public returns (uint value, bool success) &#123;
+        // 如果有10个以上的错误，就永久停用该机制。
+        require(errorCount &lt; 10);
+
+        try feed.getData(token) returns (uint v) &#123;
+            return (v, true);
+        &#125; catch Error(string memory /*reason*/) &#123;
+            // 如果在getData中调用revert，并且提供了一个原因字符串，则执行该命令。
+            errorCount++;
+            return (0, false);
+        &#125; catch Panic(uint /*errorCode*/) &#123;
+            // 在发生Panic异常的情况下执行，错误代码可以用来确定错误的种类。
+            errorCount++;
+            return (0, false);
+        &#125; catch (bytes memory /*lowLevelData*/) &#123;
+            // 在使用revert()的情况下，会执行这个命令。
+            errorCount++;
+            return (0, false);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<ul>
+<li><code>returns (uint v) &#123;...&#125;</code> 可选，正确调用外部函数时，程序会进入该分支，并返回外部函数的返回值</li>
+<li><code>catch Error(string memory /*reason*/) &#123;...&#125;</code> 如果错误由 Error 异常引起的，且带有错误信息，这个子句将被运行</li>
+<li><code>catch Panic(uint /*errorCode*/) &#123;...&#125;</code> 如果错误由 Panic 异常引起的，这个子句将被运行</li>
+<li><code>catch (bytes memory /*lowLevelData*/) &#123;...&#125;</code> 如果错误签名与其他子句不匹配， 或者在解码错误信息时出现了错误，或者没有与异常一起提供错误数据， 那么这个子句就会被执行。在这种情况下，声明的变量提供了对低级错误信息的访问</li>
+<li><code>catch &#123;...&#125;</code> 如果您对错误数据不感兴趣，您可以直接使用该语句（甚至作为唯一的catch子句）来代替前面的子句</li>
+</ul>
+<p>为了捕捉所有的错误情况，您至少要有 <code>catch &#123;...&#125;</code> 或 <code>catch (bytes memory lowLevelData) &#123;...&#125;</code> 子句。</p>
+
+        </div>
+    
+</div>
+
+            <div class="footer">
+    <span>
+        Copyright © <time datetime="2024-05-07T15:24:09.313Z">2024</time> Jian
+    </span>
+</div>
+
+        </div>
+    </body>
+</html>

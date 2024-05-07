@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- title -->
+  
+    
+      <title>合约交互</title>
+    
+  
+
+  <!-- open graph -->
+  <meta name="description" content="当我们已知合约源码时，可以创建合约对象，并调用合约对象中的方法 contract D &#123;     uint public x;     constructor(uint a) &#123;         x &#x3D; a;     &#125; &#125;  contract C &#123;     function example(uint arg) public returns (u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="合约交互">
+<meta property="og:url" content="https://escx.github.io/posts/88bc2c18bdd9/">
+<meta property="og:site_name" content="esc&lt;x&gt;">
+<meta property="og:description" content="当我们已知合约源码时，可以创建合约对象，并调用合约对象中的方法 contract D &#123;     uint public x;     constructor(uint a) &#123;         x &#x3D; a;     &#125; &#125;  contract C &#123;     function example(uint arg) public returns (u">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-05-07T15:23:07.000Z">
+<meta property="article:modified_time" content="2024-05-07T15:23:33.625Z">
+<meta property="article:author" content="Jian">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary">
+
+  <!-- canonical -->
+  
+    <link rel="canonical" href="https://escx.github.io/posts/88bc2c18bdd9/">
+  
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- Preload fonts -->
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-regular.woff2" crossorigin blocking="render">
+  <link rel="preload" as="font" href="/fonts/montserrat-v23-latin-600.woff2" crossorigin blocking="render">
+
+  <!-- CSS -->
+  
+<link rel="stylesheet prefetch" as="style" href="/css/reset.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/style.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/markdown.css">
+
+  
+<link rel="stylesheet prefetch" as="style" href="/css/fonts.css">
+
+
+  <!-- highlight.js -->
+  
+    <script>
+        function loadHljs() {
+            hljs.highlightAll();
+        }
+        function loadHljsLineNumbers() {
+            hljs.initLineNumbersOnLoad();
+        }
+    </script>
+
+    
+<link rel="stylesheet prefetch" as="style" href="/css/a11y-dark.min.css">
+
+    
+<script src="/js/highlight.min.js" defer onload="loadHljs()"></script>
+
+    
+<script src="/js/highlightjs-line-numbers.js" defer onload="loadHljsLineNumbers()"></script>
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+    <body>
+        <div class="paper-main">
+            <div class="header">
+    <a class="logo" href="/" title="esc&lt;x&gt;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90" height="30" viewBox="0 0 120 40" fill="none">
+            <path d="M70.116 1.316L60.252 15.14L50.532 1.316L42.9 1.316L56.58 20.18L42.9 38.684L50.028 38.684L59.964 24.86L69.612 38.684L77.1 38.684L63.564 19.892L77.1 1.316L70.116 1.316ZM33.46 10.67L33.46 5.57L4.54 17.33L4.54 24.41L33.46 36.17L33.46 31.07L8.38 20.87L33.46 10.67ZM86.54 5.57L115.46 17.33L115.46 24.41L86.54 36.17L86.54 31.07L111.62 20.87L86.54 10.67L86.54 5.57Z" fill-rule="evenodd"  fill="#000000" >
+            </path>
+        </svg>
+    </a>
+
+    <ul class="nav">
+        
+            
+            <li>
+                
+                    <a class="current" href="/">
+                        首页
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/archives">
+                        归档
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/categories">
+                        分类
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/tags">
+                        标签
+                    </a>
+                
+            </li>
+        
+            
+            <li>
+                
+                    <a class=""
+                        href="/about">
+                        关于
+                    </a>
+                
+            </li>
+        
+    </ul>
+
+    <div class="subtitle">“与其感慨路难行，不如马上出发。”</div>
+</div>
+
+            <div class="post-main">
+    
+        <div class="post-main-title">
+            合约交互
+        </div>
+        <div class="post-meta">
+            2024-05-07
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
+                    未分类
+                </a>
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            
+                <a class="link" href="/tags/Solidity/">
+                    #&nbsp;Solidity&nbsp;
+                </a>
+            
+        </div>
+        <div class="post-md">
+            <p>当我们已知合约源码时，可以创建合约对象，并调用合约对象中的方法</p>
+<pre><code class="hljs solidity">contract D &#123;
+    uint public x;
+    constructor(uint a) &#123;
+        x = a;
+    &#125;
+&#125;
+
+contract C &#123;
+    function example(uint arg) public returns (uint resData) &#123;
+        D instanceD = new D(arg);
+        resData = instanceD.x();
+    &#125;
+&#125;</code></pre>
+<hr>
+<p>当我们已知合约接口和已部署合约地址时，可以通过合约实例调用合约方法</p>
+<pre><code class="hljs solidity">interface ID &#123;
+  function x() public view returns (uint);
+&#125;
+
+contract C &#123;
+  function example() public returns (uint resData) &#123;
+    ID instanceD = ID(addressD);
+    resData = instanceD.x();
+  &#125;
+&#125;</code></pre>
+<hr>
+<p>如果我们只知道已部署合约地址，想要调用该合约中的函数时，Solidity 提供了三个低级别方法 <code>call</code> <code>delegatecall</code> <code>staticcall</code>，可以更直接地控制编码。所有这些函数都是低级别的函数，由于它们绕过了类型检查、函数存在性检查和参数打包，应该谨慎使用。具体来说，任何未知的合约都可能是恶意的，如果您调用它，您就把控制权交给了该合约，这些方法只应该作为最后的手段来使用。</p>
+<pre><code class="hljs solidity">// 函数选择器签名
+bytes memory payload = abi.encodeWithSignature(&quot;register(string)&quot;, &quot;MyName&quot;);
+
+// call 调用函数
+(bool success, bytes memory rawData) = address(nameReg).call(payload);
+
+// 判断调用是否成功，这一步不可或缺
+if (!success) &#123;
+  revert();
+&#125;
+
+// 解码返回数据
+string returnData = abi.decode(rawData, (string));</code></pre>
+
+<p>对于 <strong>call</strong> 方法，可以指定 <strong>gas</strong> 和 <strong>value</strong>，其他两个方法只能指定 <strong>gas</strong>。最好避免在代码中硬编码 gas 值，这可能有很多隐患。另外，对 gas 的访问在未来可能会改变。</p>
+<pre><code class="hljs solidity">address(nameReg).call&#123;gas: 1000000, value: 1 ether&#125;(abi.encodeWithSignature(&quot;register(string)&quot;, &quot;MyName&quot;));</code></pre>
+
+<p>如果被调用的账户不存在，低级别函数的第一个返回值为 <strong>true</strong>，这是 EVM 设计的一部分（EVM 认为对一个不存在的合约的调用总是成功的）。Solidity 在执行外部调用时使用 <code>extcodesize</code> 操作码进行额外的检查。这确保了即将被调用的合约要么实际存在（它包含代码），要么就会产生一个异常。而低级别调用并不会进行这种检查，这使得它们在gas方面更便宜，但也更不安全。因此有必要在调用之前检查合约地址是否存在。</p>
+<pre><code class="hljs solidity">require(address(nameReg).isContract());</code></pre>
+
+<p><strong>delegatecall</strong> 执行目标合约函数时，上下文环境是当前环境。这意味着只有代码逻辑来源于目标合约，而 <em>状态变量</em> <em>msg.value</em> <em>msg.sender</em> 等数据都来源于当前合约。且当前合约的状态变量结构应与目标合约保持一致。该方法通常应用于升级合约，具体内容可参考 <a href="">代理合约</a>。</p>
+<p><strong>staticcall</strong> 只能执行目标合约中的只读函数，无法改变合约状态，使用该方法可以安全的调用外部只读函数。</p>
+
+        </div>
+    
+</div>
+
+            <div class="footer">
+    <span>
+        Copyright © <time datetime="2024-05-07T15:24:09.310Z">2024</time> Jian
+    </span>
+</div>
+
+        </div>
+    </body>
+</html>

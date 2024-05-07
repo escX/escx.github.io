@@ -7,9 +7,7 @@
 
   <!-- title -->
   
-    
-      <title>首页</title>
-    
+    <title>esc&lt;x&gt;</title>
   
 
   <!-- open graph -->
@@ -123,6 +121,86 @@
             <div class="post-list">
     
         <div class="post">
+            <a class="post-title" href="/posts/88bc2c18bdd9/">
+                合约交互
+            </a>
+            <div class="post-except">
+                当我们已知合约源码时，可以创建合约对象，并调用合约对象中的方法
+contract D &#123;
+    uint public x;
+    constructor(uint a) &#123;
+        x = a;
+    &#125;
+&#12
+                <a class="read-more" href="/posts/88bc2c18bdd9/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.07
+            </div>
+        </div>
+    
+        <div class="post">
+            <a class="post-title" href="/posts/94ba931de353/">
+                接收以太币
+            </a>
+            <div class="post-except">
+                无论是合约还是外部账户，目前都无法阻止有人向它们发送以太币。合约可以对普通的转账做出反应并拒绝，但有一些方法可以在不创建消息调用的情况下转移以太币。一种方法是将合约地址设置为接收挖矿奖励的地址，另一种方法是使用 selfdestruct(x) 函数。这个函数会
+                <a class="read-more" href="/posts/94ba931de353/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.07
+            </div>
+        </div>
+    
+        <div class="post">
+            <a class="post-title" href="/posts/ebd3634ed40f/">
+                发送以太币
+            </a>
+            <div class="post-except">
+                有三种通过调用函数发送以太币的方式：
+
+&lt;address payable&gt;.transfer(uint256 amount)
+&lt;address payable&gt;.send(uint256 amount) returns (bool)
+&
+                <a class="read-more" href="/posts/ebd3634ed40f/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.07
+            </div>
+        </div>
+    
+        <div class="post">
+            <a class="post-title" href="/posts/085a94d2b9a3/">
+                异常处理
+            </a>
+            <div class="post-except">
+                目前 Solidity 0.8.x 版本有三种方式处理异常：revert require assert。
+error 声明自定义错误error 是 solidity 0.8.4 版本新加的内容，必须搭配 revert 命令使用。相比字符串错误信息，自定义 er
+                <a class="read-more" href="/posts/085a94d2b9a3/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.07
+            </div>
+        </div>
+    
+        <div class="post">
+            <a class="post-title" href="/posts/01a3d8c6a3d4/">
+                EIP-165 Example
+            </a>
+            <div class="post-except">
+                // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+interface IERC165 &#123;
+    function supportsInterface(bytes4 interfaceI
+                <a class="read-more" href="/posts/01a3d8c6a3d4/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.07
+            </div>
+        </div>
+    
+        <div class="post">
             <a class="post-title" href="/posts/4384b1f0ae8b/">
                 EIP-712 Example
             </a>
@@ -174,7 +252,8 @@ Layer2
 Solidity
 ethers
 Hardhat
-通用场景解决方
+通用场景
+合约
                 <a class="read-more" href="/posts/41a4ad865fee/"> ... </a>
             </div>
             <div class="post-date">
@@ -209,34 +288,18 @@ Hardhat
             </div>
         </div>
     
-        <div class="post">
-            <a class="post-title" href="/posts/a97b4505aa92/">
-                我所理解的区块链
-            </a>
-            <div class="post-except">
-                区块链是什么一种去中心化的、不易篡改的、长效的数据保存形式。联想现实生活中，数据保存的形式：
-
-发布在社交平台上的数据，是中心化的；
-平时随手写在纸条上的数据，是去中心化的；
-多人在场见证某件事情，留在每个人记忆中的数据，是去中心化的，不易篡改的；
-
-……
-现
-                <a class="read-more" href="/posts/a97b4505aa92/"> ... </a>
-            </div>
-            <div class="post-date">
-                2024.04.09
-            </div>
-        </div>
-    
 </div>
 
+
+    <div class="paginator">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    </div>
 
 
 
             <div class="footer">
     <span>
-        Copyright © <time datetime="2024-05-06T14:14:23.277Z">2024</time> Jian
+        Copyright © <time datetime="2024-05-07T15:24:09.321Z">2024</time> Jian
     </span>
 </div>
 
