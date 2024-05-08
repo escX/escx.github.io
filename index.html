@@ -121,17 +121,52 @@
             <div class="post-list">
     
         <div class="post">
+            <a class="post-title" href="/posts/7483741ad9ce/">
+                在同一地址部署不同合约
+            </a>
+            <div class="post-except">
+                在 工厂合约 一文中，我们了解了两种创建合约的方式：
+
+CREATE 创建的合约地址由 创建者地址 和 创建者Nonce 确定
+CREATE2 创建的合约地址由 创建者地址 和 salt 和 合约字节码 确定
+
+在同一地址部署不同合约的步骤：
+
+使用 CREA
+                <a class="read-more" href="/posts/7483741ad9ce/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.08
+            </div>
+        </div>
+    
+        <div class="post">
+            <a class="post-title" href="/posts/fff7c20c2efe/">
+                工厂合约
+            </a>
+            <div class="post-except">
+                在以太坊上，工厂合约可以用来部署和管理智能合约实例，并跟踪已部署合约的地址和其他相关信息。我们有两种方式实现工厂合约，分别对应 EVM 中有两个操作码：CREATE 和 CREATE2。这两种方式计算合约部署地址的方式不同：
+
+bytes20(keccak25
+                <a class="read-more" href="/posts/fff7c20c2efe/"> ... </a>
+            </div>
+            <div class="post-date">
+                2024.05.08
+            </div>
+        </div>
+    
+        <div class="post">
             <a class="post-title" href="/posts/88bc2c18bdd9/">
                 合约交互
             </a>
             <div class="post-except">
-                当我们已知合约源码时，可以创建合约对象，并调用合约对象中的方法
-contract D &#123;
-    uint public x;
-    constructor(uint a) &#123;
-        x = a;
-    &#125;
-&#12
+                当我们已知合约接口和已部署合约地址时，可以通过合约实例调用合约方法
+interface IContract &#123;
+  function x() public view returns (uint);
+&#125;
+
+contract C &#123;
+
                 <a class="read-more" href="/posts/88bc2c18bdd9/"> ... </a>
             </div>
             <div class="post-date">
@@ -261,33 +296,6 @@ Hardhat
             </div>
         </div>
     
-        <div class="post">
-            <a class="post-title" href="/posts/94819e93d784/">
-                EIP记录（持续更新）
-            </a>
-            <div class="post-except">
-                EIP (Ethereum Improvement Proposals) 即以太坊改进提案，记载以太坊的变化并且记载在以太坊中。它们是人们提议、辩论和适应变化的途径。在学习过程中，会逐步了解和熟悉多种 EIP。为梳理总结这部分内容，将这些 EIP 记录下来，以
-                <a class="read-more" href="/posts/94819e93d784/"> ... </a>
-            </div>
-            <div class="post-date">
-                2024.05.04
-            </div>
-        </div>
-    
-        <div class="post">
-            <a class="post-title" href="/posts/7b8de3a3f48a/">
-                区块链、人工智能，哪个才是未来？
-            </a>
-            <div class="post-except">
-                刚刚写了一篇文章，越写想到的东西越多，本想再多写一点，但和主题又不是很符合。联想到人工智能，索性新开一篇文章，趁热打铁，横向比较下区块链和人工智能不同层面的影响。
-生产力和生产关系生产力大家都理解，但生产关系的概念大家认识可能比较模糊。我不是经济学专业，所以用
-                <a class="read-more" href="/posts/7b8de3a3f48a/"> ... </a>
-            </div>
-            <div class="post-date">
-                2024.04.09
-            </div>
-        </div>
-    
 </div>
 
 
@@ -299,7 +307,7 @@ Hardhat
 
             <div class="footer">
     <span>
-        Copyright © <time datetime="2024-05-07T15:24:09.321Z">2024</time> Jian
+        Copyright © <time datetime="2024-05-08T13:38:34.115Z">2024</time> Jian
     </span>
 </div>
 

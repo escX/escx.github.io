@@ -8,27 +8,27 @@
   <!-- title -->
   
     
-      <title>智能合约工程师学习清单</title>
+      <title>在同一地址部署不同合约</title>
     
   
 
   <!-- open graph -->
-  <meta name="description" content="为明晰学习路径和查漏补缺，不定期更新学习方向和需要掌握的技能。 以太坊 以太坊客户端 以太坊虚拟机 签名和交易 密码学：哈希算法、非对称加密、零知识证明 共识算法 EIP Layer2  智能合约 Solidity ethers Hardhat 通用场景 合约安全 测试 部署  应用 非同质化代币 NFT 去中心化金融 DeFi 去中心化自治组织 DAO 去中心化身份 去中心化社交网络 去中心化科">
+  <meta name="description" content="在 工厂合约 一文中，我们了解了两种创建合约的方式：  CREATE 创建的合约地址由 创建者地址 和 创建者Nonce 确定 CREATE2 创建的合约地址由 创建者地址 和 salt 和 合约字节码 确定  在同一地址部署不同合约的步骤：  使用 CREATE2 部署 代理合约 代理合约 使用 CREATE 部署 合约A 销毁 合约A 和 代理合约 第二次使用 CREATE2 部署 代理合约">
 <meta property="og:type" content="article">
-<meta property="og:title" content="智能合约工程师学习清单">
-<meta property="og:url" content="https://escx.github.io/posts/41a4ad865fee/">
+<meta property="og:title" content="在同一地址部署不同合约">
+<meta property="og:url" content="https://escx.github.io/posts/7483741ad9ce/">
 <meta property="og:site_name" content="esc&lt;x&gt;">
-<meta property="og:description" content="为明晰学习路径和查漏补缺，不定期更新学习方向和需要掌握的技能。 以太坊 以太坊客户端 以太坊虚拟机 签名和交易 密码学：哈希算法、非对称加密、零知识证明 共识算法 EIP Layer2  智能合约 Solidity ethers Hardhat 通用场景 合约安全 测试 部署  应用 非同质化代币 NFT 去中心化金融 DeFi 去中心化自治组织 DAO 去中心化身份 去中心化社交网络 去中心化科">
+<meta property="og:description" content="在 工厂合约 一文中，我们了解了两种创建合约的方式：  CREATE 创建的合约地址由 创建者地址 和 创建者Nonce 确定 CREATE2 创建的合约地址由 创建者地址 和 salt 和 合约字节码 确定  在同一地址部署不同合约的步骤：  使用 CREATE2 部署 代理合约 代理合约 使用 CREATE 部署 合约A 销毁 合约A 和 代理合约 第二次使用 CREATE2 部署 代理合约">
 <meta property="og:locale">
-<meta property="article:published_time" content="2024-05-05T10:30:15.000Z">
-<meta property="article:modified_time" content="2024-05-07T12:23:58.275Z">
+<meta property="article:published_time" content="2024-05-08T06:58:51.000Z">
+<meta property="article:modified_time" content="2024-05-08T13:35:52.741Z">
 <meta property="article:author" content="Jian">
-<meta property="article:tag" content="智能合约">
+<meta property="article:tag" content="合约安全">
 <meta name="twitter:card" content="summary">
 
   <!-- canonical -->
   
-    <link rel="canonical" href="https://escx.github.io/posts/41a4ad865fee/">
+    <link rel="canonical" href="https://escx.github.io/posts/7483741ad9ce/">
   
 
   <!-- Favicon -->
@@ -145,10 +145,10 @@
             <div class="post-main">
     
         <div class="post-main-title">
-            智能合约工程师学习清单
+            在同一地址部署不同合约
         </div>
         <div class="post-meta">
-            2024-05-05
+            2024-05-08
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
                 /&nbsp;<a class="link" href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">
@@ -157,46 +157,28 @@
             
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
-                <a class="link" href="/tags/%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/">
-                    #&nbsp;智能合约&nbsp;
+                <a class="link" href="/tags/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/">
+                    #&nbsp;合约安全&nbsp;
                 </a>
             
         </div>
         <div class="post-md">
-            <p>为明晰学习路径和查漏补缺，不定期更新学习方向和需要掌握的技能。</p>
-<h3 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h3><ul>
-<li><a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%AE%A2%E6%88%B7%E7%AB%AF/">以太坊客户端</a></li>
-<li><a href="/tags/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA/">以太坊虚拟机</a></li>
-<li><a href="/tags/%E7%AD%BE%E5%90%8D%E5%92%8C%E4%BA%A4%E6%98%93/">签名和交易</a></li>
-<li><a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学：哈希算法、非对称加密、零知识证明</a></li>
-<li><a href="/tags/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/">共识算法</a></li>
-<li><a href="/tags/EIP/">EIP</a></li>
-<li><a href="/tags/Layer2/">Layer2</a></li>
+            <p>在 <a href="/posts/fff7c20c2efe/">工厂合约</a> 一文中，我们了解了两种创建合约的方式：</p>
+<ul>
+<li><strong>CREATE</strong> 创建的合约地址由 <strong>创建者地址</strong> 和 <strong>创建者Nonce</strong> 确定</li>
+<li><strong>CREATE2</strong> 创建的合约地址由 <strong>创建者地址</strong> 和 <strong>salt</strong> 和 <strong>合约字节码</strong> 确定</li>
 </ul>
-<h3 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h3><ul>
-<li><a href="/tags/Solidity/">Solidity</a></li>
-<li><a href="/tags/ethers/">ethers</a></li>
-<li><a href="/tags/Hardhat/">Hardhat</a></li>
-<li><a href="/tags/%E9%80%9A%E7%94%A8%E5%9C%BA%E6%99%AF/">通用场景</a></li>
-<li><a href="/tags/%E5%90%88%E7%BA%A6%E5%AE%89%E5%85%A8/">合约安全</a></li>
-<li><a href="/tags/%E6%B5%8B%E8%AF%95/">测试</a></li>
-<li><a href="/tags/%E9%83%A8%E7%BD%B2/">部署</a></li>
-</ul>
-<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
-<li><a href="/tags/NFT/">非同质化代币 NFT</a></li>
-<li><a href="/tags/DeFi">去中心化金融 DeFi</a></li>
-<li><a href="/tags/DAO/">去中心化自治组织 DAO</a></li>
-<li>去中心化身份</li>
-<li>去中心化社交网络</li>
-<li>去中心化科学 DeSci</li>
-<li>再生金融 ReFi</li>
-</ul>
-<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><ul>
-<li><a href="/tags/IPFS/">去中心化基于内容寻址的存储系统 IPFS</a></li>
-<li><a href="/tags/Whisper/">去中心化消息通信协议 Whisper</a></li>
-<li><a href="/tags/Chainlink/">预言机 Chainlink</a></li>
-<li><a href="/tags/TheGraph/">去中心化数据市场 TheGraph</a></li>
-<li><a href="tags/TheGraph">合约库 OpenZeppelin</a></li>
+<p>在同一地址部署不同合约的步骤：</p>
+<ol>
+<li>使用 <strong>CREATE2</strong> 部署 代理合约</li>
+<li>代理合约 使用 <strong>CREATE</strong> 部署 合约A</li>
+<li>销毁 合约A 和 代理合约</li>
+<li>第二次使用 <strong>CREATE2</strong> 部署 代理合约</li>
+<li>代理合约 使用 <strong>CREATE</strong> 部署 合约B</li>
+</ol>
+<p>在上面的过程中，在第1步和第4步，只要保证 <strong>salt</strong> 和 <strong>合约字节码</strong> 不变，代理合约地址就不变。第2步和第4步中，代理合约 地址和Nonce都没有变，所以即使 合约A 和 合约B 不同，它们部署的地址也是相同的。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://learnblockchain.cn/article/5916">解析 Tornado 治理攻击 - 如何同一个地址上部署不同的合约</a></li>
 </ul>
 
         </div>
@@ -205,7 +187,7 @@
 
             <div class="footer">
     <span>
-        Copyright © <time datetime="2024-05-08T13:38:34.108Z">2024</time> Jian
+        Copyright © <time datetime="2024-05-08T13:38:34.103Z">2024</time> Jian
     </span>
 </div>
 
