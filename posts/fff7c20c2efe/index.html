@@ -21,7 +21,7 @@
 <meta property="og:description" content="在以太坊上，工厂合约可以用来部署和管理智能合约实例，并跟踪已部署合约的地址和其他相关信息。我们有两种方式实现工厂合约，分别对应 EVM 中有两个操作码：CREATE 和 CREATE2。这两种方式计算合约部署地址的方式不同：  bytes20(keccak256(senderAddress, nonce)) CREATE 创建的合约地址由 创建者地址 和 创建者Nonce 确定 bytes20(k">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-05-08T01:19:54.000Z">
-<meta property="article:modified_time" content="2024-05-08T13:38:05.772Z">
+<meta property="article:modified_time" content="2024-05-08T13:45:25.696Z">
 <meta property="article:author" content="Jian">
 <meta property="article:tag" content="Solidity">
 <meta name="twitter:card" content="summary">
@@ -224,7 +224,7 @@ contract Factory &#123;
     &#125;
 &#125;</code></pre>
 
-<p>利用 <strong>CREATE</strong> 和 <strong>CREATE2</strong>，我们可以在销毁合约后，在原地址上部署另一份的不同合约，具体内容可以参考 <a href="/posts/7483741ad9ce/">Tornado 治理攻击</a></p>
+<p>利用 <strong>CREATE</strong> 和 <strong>CREATE2</strong>，我们可以在销毁合约后，在原地址上部署另一份的不同合约，具体内容可以参考 <a href="/posts/7483741ad9ce/">在同一地址部署不同合约</a></p>
 
         </div>
     
@@ -232,7 +232,7 @@ contract Factory &#123;
 
             <div class="footer">
     <span>
-        Copyright © <time datetime="2024-05-08T13:38:34.103Z">2024</time> Jian
+        Copyright © <time datetime="2024-05-08T13:47:32.386Z">2024</time> Jian
     </span>
 </div>
 
